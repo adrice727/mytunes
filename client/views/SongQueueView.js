@@ -3,8 +3,12 @@ var SongQueueView = Backbone.View.extend({
 
   tagName: "table",
 
-  initialize: function(params) {
+  initialize: function() {
     this.render();
+    console.log(this.collection);
+
+  //   this.collection.on("change", function());
+  //   });
   },
 
   render: function(){
@@ -13,8 +17,9 @@ var SongQueueView = Backbone.View.extend({
     this.$el.children().detach();
     // *** Pretty sure this is okay ***
     console.log("things", this.collection);
-    if(this.collection){
-      this.$el.html('<th>Playlist</th>').append(
+    this.$el.html('<th>Playlist</th>');
+    if(this.collection.length > 0){
+      this.$el.append(
         this.collection.map(function(song){
           return new SongQueueEntryView({model: song}).render();
         })

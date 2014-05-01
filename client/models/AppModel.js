@@ -4,7 +4,7 @@ var AppModel = Backbone.Model.extend({
   initialize: function(params){
     this.set('currentSong', new SongModel());
 
-    this.set('songQueue', params.playlist);  // *** changed from new SongQueue() ***
+    this.set('songQueue', new SongQueue());  // *** changed from new SongQueue() ***
 
 
     /* Note that 'this' is passed as the third argument. That third argument is
@@ -19,11 +19,13 @@ var AppModel = Backbone.Model.extend({
       this.set('currentSong', song);
     }, this);
 
-    // *** Probably not at all the right way to do this ***
-    // params.playlist.on('songQueueRender', function(){
-    //   console.log('i want meowmix');
-    //   this.set('songQueue', 'songQueue');
-    // });
+    params.library.on('enqueue', function(song){
+      this.get('songQueue').add(song);
+    }, this);
+
+    params.library.on('dequeue', function(song){
+      this.get('songQueue').remove(song);
+    }, this);
 
   }
 
