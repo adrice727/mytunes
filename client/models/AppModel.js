@@ -21,6 +21,10 @@ var AppModel = Backbone.Model.extend({
 
     params.library.on('enqueue', function(song){
       this.get('songQueue').add(song);
+      if(this.get('songQueue').length === 1){
+        this.set('currentSong', song);
+      }
+
     }, this);
 
     params.library.on('dequeue', function(song){

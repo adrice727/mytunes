@@ -17,7 +17,7 @@ var SongQueueView = Backbone.View.extend({
     this.$el.children().detach();
     // *** Pretty sure this is okay ***
     console.log("things", this.collection);
-    this.$el.html('<th>Playlist</th>');
+    this.$el.html('<th class=monofett>Playlist</th>');
     if(this.collection.length > 0){
       this.$el.append(
         this.collection.map(function(song){
